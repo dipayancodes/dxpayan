@@ -8,15 +8,21 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ServicesSection from "@/components/ServicesSection";
 import MarketInsights from "@/components/MarketInsights";
 import ContactSection from "@/components/ContactSection";
+import AIPersonalizedGreeting from "@/components/AIPersonalizedGreeting";
+import ParticleBackground from "@/components/ParticleBackground";
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark-primary text-white">
+    <div className="min-h-screen bg-dark-primary text-white relative overflow-x-hidden">
+      <ParticleBackground />
       <FloatingNavigation />
       <ScrollProgress />
       
-      <main>
+      <main className="relative z-10">
         <HeroSection />
+        <div className="container mx-auto px-6 my-20">
+          <AIPersonalizedGreeting />
+        </div>
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />

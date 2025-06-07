@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, Linkedin, Github, Twitter, Send, MapPin, Clock, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -19,15 +20,44 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
+  const [responseTime, setResponseTime] = useState("");
   
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting }
   } = useForm<ContactForm>({
     resolver: zodResolver(contactSchema)
   });
+
+  const watchedFields = watch();
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      
+      const hour = now.getHours();
+      if (hour >= 9 && hour <= 18) {
+        setResponseTime("Usually responds within 2-4 hours");
+      } else {
+        setResponseTime("Usually responds within 8-12 hours");
+      }
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const hasContent = Boolean(watchedFields.message && watchedFields.message.length > 0);
+    setIsTyping(hasContent);
+  }, [watchedFields.message]);
 
   const onSubmit = async (data: ContactForm) => {
     try {
@@ -60,26 +90,36 @@ const ContactSection = () => {
       icon: <Mail className="text-cyber-blue" />,
       label: "Email",
       value: "dipayan@example.com",
-      color: "cyber-blue"
+      color: "cyber-blue",
+      href: "mailto:dipayan@example.com"
     },
     {
       icon: <Linkedin className="text-cyber-purple" />,
       label: "LinkedIn",
       value: "linkedin.com/in/dipayan-ghosh",
-      color: "cyber-purple"
+      color: "cyber-purple",
+      href: "https://linkedin.com/in/dipayan-ghosh"
     },
     {
       icon: <Github className="text-cyber-green" />,
       label: "GitHub",
       value: "github.com/dipayan-ghosh",
-      color: "cyber-green"
+      color: "cyber-green",
+      href: "https://github.com/dipayan-ghosh"
     },
     {
       icon: <Twitter className="text-blue-400" />,
       label: "Twitter",
       value: "@dipayan_crypto",
-      color: "blue-400"
+      color: "blue-400",
+      href: "https://twitter.com/dipayan_crypto"
     }
+  ];
+
+  const aiInsights = [
+    { icon: <Clock className="w-4 h-4" />, label: "Response Time", value: responseTime },
+    { icon: <Globe className="w-4 h-4" />, label: "Availability", value: "24/7 Digital Presence" },
+    { icon: <MapPin className="w-4 h-4" />, label: "Time Zone", value: `Local: ${currentTime}` }
   ];
 
   return (
@@ -117,26 +157,51 @@ const ContactSection = () => {
                   Ready to collaborate on your next project? Let's discuss how we can bring your vision to life.
                 </p>
               </div>
+
+              {/* AI Insights Panel */}
+              <motion.div
+                className="glassmorphic rounded-xl p-4 border border-white/10 mb-6"
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h4 className="text-sm font-semibold text-cyber-blue mb-3 flex items-center">
+                  <div className={`w-2 h-2 rounded-full mr-2 ${isTyping ? 'bg-cyber-green animate-pulse' : 'bg-gray-500'}`} />
+                  AI Assistant Status
+                </h4>
+                <div className="grid grid-cols-1 gap-2">
+                  {aiInsights.map((insight, index) => (
+                    <div key={index} className="flex items-center space-x-2 text-xs text-gray-400">
+                      {insight.icon}
+                      <span>{insight.label}:</span>
+                      <span className="text-white">{insight.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
               
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
-                  <motion.div
+                  <motion.a
                     key={index}
-                    className="flex items-center space-x-4 group"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-4 group cursor-pointer"
                     initial={{ x: -30, opacity: 0 }}
                     whileInView={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ x: 10 }}
                   >
-                    <div className={`w-12 h-12 bg-${item.color}/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`w-12 h-12 bg-${item.color}/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 quantum-glow`}>
                       {item.icon}
                     </div>
                     <div>
                       <div className="font-medium">{item.label}</div>
                       <div className="text-gray-400 text-sm">{item.value}</div>
                     </div>
-                  </motion.div>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
