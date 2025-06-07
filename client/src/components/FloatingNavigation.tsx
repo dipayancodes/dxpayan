@@ -10,6 +10,7 @@ const FloatingNavigation = () => {
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
     { id: "services", label: "Services" },
+    { id: "market-insights", label: "Market" },
     { id: "contact", label: "Contact" }
   ];
 
