@@ -1,7 +1,33 @@
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Zap, Brain, Code, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import ParticleBackground from "./ParticleBackground";
+import NeuralGrid from "./NeuralGrid";
 
 const HeroSection = () => {
+  const [timeOfDay, setTimeOfDay] = useState("");
+  const [currentRole, setCurrentRole] = useState(0);
+
+  const roles = [
+    { icon: <Code className="w-6 h-6" />, title: "Full-Stack Developer", color: "cyber-blue" },
+    { icon: <TrendingUp className="w-6 h-6" />, title: "Crypto Trader", color: "cyber-green" },
+    { icon: <Brain className="w-6 h-6" />, title: "Data Scientist", color: "cyber-purple" },
+    { icon: <Zap className="w-6 h-6" />, title: "AI Innovator", color: "cyber-blue" }
+  ];
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setTimeOfDay("Good Morning");
+    else if (hour < 18) setTimeOfDay("Good Afternoon");
+    else setTimeOfDay("Good Evening");
+
+    const roleInterval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 3000);
+
+    return () => clearInterval(roleInterval);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -10,23 +36,38 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated background elements */}
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden neural-grid">
+      <ParticleBackground />
+      <NeuralGrid />
+      
+      {/* Holographic background layers */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyber-blue/10 rounded-full blur-3xl"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 holographic rounded-full blur-3xl"
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 180, 360],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyber-purple/10 rounded-full blur-3xl"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: -3 }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 holographic rounded-full blur-3xl"
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [360, 180, 0],
+            scale: [1.1, 1, 1.1]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: -4 }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyber-green/10 rounded-full blur-3xl"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: -1.5 }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 holographic rounded-full blur-3xl"
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, -180, -360],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: -2 }}
         />
       </div>
       
@@ -68,8 +109,20 @@ const HeroSection = () => {
             </div>
           </motion.div>
           
+          {/* AI-powered personalized greeting */}
+          <motion.div
+            className="mb-6"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <p className="text-lg text-cyber-blue font-mono">
+              {timeOfDay}, I'm
+            </p>
+          </motion.div>
+
           <motion.h1
-            className="text-6xl md:text-8xl font-bold mb-6 text-gradient"
+            className="text-6xl md:text-8xl font-bold mb-6 text-gradient quantum-glow"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -77,26 +130,54 @@ const HeroSection = () => {
             Dipayan Ghosh
           </motion.h1>
           
+          {/* Dynamic role display */}
           <motion.div
-            className="mb-8"
+            className="mb-8 h-16 flex items-center justify-center"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <p className="text-xl md:text-2xl text-gray-300 mb-4">Multi-Disciplinary Innovator</p>
+            <motion.div
+              key={currentRole}
+              className={`flex items-center space-x-3 text-2xl md:text-3xl font-semibold text-${roles[currentRole].color}`}
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -50, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                {roles[currentRole].icon}
+              </motion.div>
+              <span>{roles[currentRole].title}</span>
+            </motion.div>
+          </motion.div>
+
+          {/* Holographic skill badges */}
+          <motion.div
+            className="mb-8"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+          >
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="px-4 py-2 glassmorphic rounded-full text-sm border border-white/20">
-                <i className="fas fa-chart-line mr-2 text-cyber-green"></i>Crypto Trader
-              </span>
-              <span className="px-4 py-2 glassmorphic rounded-full text-sm border border-white/20">
-                <i className="fas fa-brain mr-2 text-cyber-blue"></i>Data Scientist
-              </span>
-              <span className="px-4 py-2 glassmorphic rounded-full text-sm border border-white/20">
-                <i className="fas fa-rocket mr-2 text-cyber-purple"></i>Entrepreneur
-              </span>
-              <span className="px-4 py-2 glassmorphic rounded-full text-sm border border-white/20">
-                <i className="fas fa-code mr-2 text-cyber-green"></i>Full-Stack Developer
-              </span>
+              {["Blockchain", "AI/ML", "Trading", "Web3", "Data Science"].map((skill, index) => (
+                <motion.span
+                  key={skill}
+                  className="px-4 py-2 glassmorphic rounded-full text-sm border morphic-border quantum-glow"
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(0, 212, 255, 0.5)"
+                  }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.1 + index * 0.1 }}
+                >
+                  {skill}
+                </motion.span>
+              ))}
             </div>
           </motion.div>
           

@@ -151,6 +151,43 @@
   .border-cyber-green {
     border-color: hsl(158, 64%, 52%);
   }
+
+  .neural-grid {
+    background-image: 
+      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .holographic {
+    background: linear-gradient(
+      45deg,
+      rgba(0, 212, 255, 0.1),
+      rgba(138, 43, 226, 0.1),
+      rgba(0, 255, 127, 0.1),
+      rgba(255, 20, 147, 0.1)
+    );
+    background-size: 400% 400%;
+    animation: hologram 15s ease infinite;
+  }
+
+  .quantum-glow {
+    box-shadow: 
+      0 0 5px rgba(0, 212, 255, 0.3),
+      0 0 10px rgba(0, 212, 255, 0.2),
+      0 0 20px rgba(0, 212, 255, 0.1),
+      inset 0 0 20px rgba(0, 212, 255, 0.05);
+  }
+
+  .morphic-border {
+    border: 1px solid;
+    border-image: linear-gradient(
+      45deg,
+      rgba(0, 212, 255, 0.3),
+      rgba(138, 43, 226, 0.3),
+      rgba(0, 255, 127, 0.3)
+    ) 1;
+  }
 }
 
 @keyframes float {
@@ -180,6 +217,44 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes hologram {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-neon {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.5), 0 0 10px rgba(0, 212, 255, 0.3), 0 0 20px rgba(0, 212, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3);
+  }
+}
+
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
   }
 }
 
