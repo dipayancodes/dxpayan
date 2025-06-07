@@ -22,7 +22,7 @@ const FloatingNavigation = () => {
 
   return (
     <motion.nav
-      className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 glassmorphic rounded-full px-6 py-3"
+      className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 glassmorphic rounded-full px-6 py-3 text-right"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.2 }}
