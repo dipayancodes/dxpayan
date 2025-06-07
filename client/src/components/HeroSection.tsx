@@ -3,6 +3,7 @@ import { ChevronDown, Zap, Brain, Code, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import ParticleBackground from "./ParticleBackground";
 import NeuralGrid from "./NeuralGrid";
+import avatarImage from "@assets/me_1749321287663.jpg";
 
 const HeroSection = () => {
   const [timeOfDay, setTimeOfDay] = useState("");
@@ -93,7 +94,7 @@ const HeroSection = () => {
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
+                  src={avatarImage}
                   alt="Dipayan Ghosh - Professional Portrait"
                   className="w-full h-full rounded-full object-cover"
                 />
