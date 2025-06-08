@@ -11,12 +11,35 @@ const MarketInsights = () => {
     dailyPnL: 12580
   });
 
+  // Fetch live BTC and ETH prices from CoinGecko
   useEffect(() => {
-    // Simulate real-time price updates
+    const fetchPrices = async () => {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd"
+        );
+        const data = await res.json();
+        setLiveData(prev => ({
+          ...prev,
+          btcPrice: data.bitcoin.usd,
+          ethPrice: data.ethereum.usd
+        }));
+      } catch (e) {
+        // fallback: do nothing, keep previous prices
+      }
+    };
+
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 10000); // update every 10s
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Simulate portfolio value and dailyPnL updates
+  useEffect(() => {
     const interval = setInterval(() => {
       setLiveData(prev => ({
-        btcPrice: prev.btcPrice + (Math.random() - 0.5) * 100,
-        ethPrice: prev.ethPrice + (Math.random() - 0.5) * 50,
+        ...prev,
         portfolioValue: prev.portfolioValue + (Math.random() - 0.5) * 10000,
         dailyPnL: prev.dailyPnL + (Math.random() - 0.5) * 1000
       }));

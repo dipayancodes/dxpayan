@@ -89,7 +89,7 @@ const ContactSection = () => {
     {
       icon: <Mail className="text-cyber-blue" />,
       label: "Email",
-      value: "dipayan@example.com",
+      value: "krishnadipayan108@gmail.com",
       color: "cyber-blue",
       href: "mailto:dipayan@example.com"
     },
@@ -98,21 +98,21 @@ const ContactSection = () => {
       label: "LinkedIn",
       value: "linkedin.com/in/dipayan-ghosh",
       color: "cyber-purple",
-      href: "https://linkedin.com/in/dipayan-ghosh"
+      href: "https://www.linkedin.com/in/dipayan-ghosh-a874a327a/"
     },
     {
       icon: <Github className="text-cyber-green" />,
       label: "GitHub",
-      value: "github.com/dipayan-ghosh",
+      value: "github.com/dipayncodes",
       color: "cyber-green",
-      href: "https://github.com/dipayan-ghosh"
+      href: "https://github.com/dipayancodes"
     },
     {
       icon: <Twitter className="text-blue-400" />,
       label: "Twitter",
-      value: "@dipayan_crypto",
+      value: "@dxpayan",
       color: "blue-400",
-      href: "https://twitter.com/dipayan_crypto"
+      href: "https://x.com/dxpayan"
     }
   ];
 
@@ -214,6 +214,13 @@ const ContactSection = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
+                {/* 
+                Note: Your message will be sent directly to my email address.
+                */}
+                <div className="mb-4 text-xs text-gray-400 italic flex items-center gap-2">
+                <Mail className="w-4 h-4 text-cyber-blue" />
+                Messages sent via this form are delivered directly to my email inbox.
+                </div>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
