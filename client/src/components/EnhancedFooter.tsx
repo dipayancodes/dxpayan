@@ -5,37 +5,37 @@ const EnhancedFooter = () => {
   const socialLinks = [
     {
       icon: <Linkedin className="w-5 h-5" />,
-      href: "https://linkedin.com/in/dipayan-ghosh",
+      href: "https://www.linkedin.com/in/dipayan-ghosh-a874a327a/",
       color: "cyber-purple",
       label: "LinkedIn"
     },
     {
       icon: <Github className="w-5 h-5" />,
-      href: "https://github.com/dipayan-ghosh",
+      href: "https://github.com/dipayancodes",
       color: "cyber-green",
       label: "GitHub"
     },
     {
       icon: <Twitter className="w-5 h-5" />,
-      href: "https://twitter.com/dipayan_crypto",
+      href: "https://x.com/dxpayan",
       color: "blue-400",
       label: "Twitter"
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      href: "mailto:dipayan@example.com",
+      href: "mailto:krishnadipayan108@gmail.com",
       color: "cyber-blue",
       label: "Email"
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      href: "https://t.me/dipayan_crypto",
+      href: "#",
       color: "blue-500",
       label: "Telegram"
     },
     {
       icon: <Globe className="w-5 h-5" />,
-      href: "https://dipayan-portfolio.com",
+      href: "dxpayan.onrender.com",
       color: "cyber-green",
       label: "Website"
     }
